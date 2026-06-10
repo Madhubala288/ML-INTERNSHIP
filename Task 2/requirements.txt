@@ -1,0 +1,6 @@
+--no-deps
+streamlit
+pandas
+numpy
+matplotlib
+seaborn
