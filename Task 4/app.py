@@ -5,7 +5,7 @@ import joblib
 import os
 st.set_page_config(page_title="Credit Card Fraud Detection App", layout="wide")
 st.title(" Step 17: Streamlit Application")
-MODEL_PATH = "models/best_model.pkl"
+MODEL_PATH = "Task 4/models/best_model.pkl"
 if os.path.exists(MODEL_PATH):
     best_model = joblib.load(MODEL_PATH)
 else:
