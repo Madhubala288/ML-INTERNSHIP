@@ -11,15 +11,23 @@ st.title("Step 17: Streamlit Application")
 # --- Dynamic Path Resolution Fix ---
 # Finds the directory where app.py lives, then looks inside the "models" folder
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(BASE_DIR, "models", "best_model.pkl")
+# --- Path Resolution for Local & Cloud ---
+# 1. Pehle direct relative path try karein (Jo Streamlit cloud par behtareen chalta hai)
+MODEL_PATH = "models/best_model.pkl"
 
-# Initialize best_model as None so the script doesn't crash if loading fails
+# 2. Agar direct nahi milta (jaise local terminal me folder issue hota hai), toh dynamic path try karein
+if not os.path.exists(MODEL_PATH):
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    MODEL_PATH = os.path.join(BASE_DIR, "models", "best_model.pkl")
+
+# Initialize model
 best_model = None
 
 if os.path.exists(MODEL_PATH):
     best_model = joblib.load(MODEL_PATH)
 else:
-    st.error(f"Model file not found at {MODEL_PATH}. Please make sure it's saved correctly.")
+    # Is baar error me hum clear dikhayenge ki code kis absolute directory me file dhoond raha hai
+    st.error(f"Model file not found at: {os.path.abspath(MODEL_PATH)}. Please check your GitHub repository structure.")
 
 # --- Dataset Overview ---
 st.header("Dataset Overview")
