@@ -11,14 +11,21 @@ st.write("Upload an image below to get an instant model prediction.")
 # 2. Cache the model to ensure fast loading times across runs
 @st.cache_resource
 def load_my_model():
-    # Adjust path if your weights are saved inside a subfolder structure
-    return tf.keras.models.load_model("models/cnn_model.h5")
-
-try:
-    model = load_my_model()
-    st.success("🤖 CNN Model loaded successfully!")
-except Exception as e:
-    st.error(f"❌ Failed to load model weights. Error: {e}")
+    # Folder automatic banane ke liye path setup
+    import os
+    MODEL_DIR = "models"
+    os.makedirs(MODEL_DIR, exist_ok=True)
+    
+    CNN_MODEL_PATH = os.path.join(MODEL_DIR, "cnn_model.h5")
+    
+    # Agar model folder mein nahi hai to automatic Hugging Face se download karein
+    if not os.path.exists(CNN_MODEL_PATH):
+        import urllib.request
+        CNN_URL = "https://huggingface.co/Madhubala288/my-task5-models/resolve/main/cnn_model.h5"
+        with st.spinner("Downloading CNN Model from Cloud... Please wait..."):
+            urllib.request.urlretrieve(CNN_URL, CNN_MODEL_PATH)
+            
+    return tf.keras.models.load_model(CNN_MODEL_PATH)
 
 # 3. File Uploader UI Component
 uploaded_file = st.file_uploader("Choose an image file...", type=["jpg", "jpeg", "png"])
@@ -58,7 +65,7 @@ if uploaded_file is not None:
    # Change this list sequence to match your dataset folder sorting perfectly
     class_labels = ["Cardboard", "Glass", "Metal/Batteries", "Paper", "Plastic"]
     predicted_label = class_labels[predicted_class_idx]
-    
+
     # 6. Display Final Performance Metrics
     st.markdown("---")
     st.subheader("🎯 Prediction Results")
