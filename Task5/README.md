@@ -4,7 +4,11 @@
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-DeepLearning-orange)
 ![Streamlit](https://img.shields.io/badge/Streamlit-Deployment-red)
 ![Computer Vision](https://img.shields.io/badge/Computer%20Vision-CNN-green)
+## 🌐 Live Project Demo
+Aap is project ki live web application ko yahan dekh sakti hain:
+👉 [Streamlit Web App](https://ml-internship-tvxuonezhotkt8pyizalnp.streamlit.app/)
 
+---
 ## 📌 Project Overview
 
 Waste management is an important environmental challenge. Manual waste sorting is time-consuming and inefficient. This project presents an **AI-powered Waste Classification System** that automatically identifies waste categories from images using **Deep Learning and Computer Vision techniques**.
